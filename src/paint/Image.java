@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class Image extends JPanel implements MouseListener,MouseMotionListener
 {
@@ -19,6 +20,7 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
     private boolean firstRun = true;
     private boolean pressed = false;
     private Convertitore PioIX = new Convertitore();
+  
     
     Image(ToolBox tb, BufferedImage img)
     {
@@ -29,9 +31,9 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
         addMouseListener(this);
         addMouseMotionListener(this);
         this.setBounds(1,1,imgInt.length,imgInt[0].length);
-        //Dimension dim = new Dimension(imgInt.length,imgInt[0].length);
-        //setMaximumSize(dim);
-        
+        Dimension dim = new Dimension(imgInt.length,imgInt[0].length);
+        this.setMaximumSize(dim);
+        this.setMinimumSize(dim);
         
         
     }
@@ -41,6 +43,7 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
     {
         super.paint(g);
         paintImage(g);
+        
     }
 
     @Override

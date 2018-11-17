@@ -2,8 +2,6 @@ package paint;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -59,6 +57,8 @@ public class Finestra extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setAutoscrolls(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,7 +108,7 @@ public class Finestra extends javax.swing.JFrame {
             i.repaint();
         } catch (IOException ex) 
         {
-            ex.printStackTrace();
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -119,11 +119,11 @@ public class Finestra extends javax.swing.JFrame {
         {
             if(i!=null){
                 BufferedImage image = i.saveImage();
-                ImageIO.write(image, "jpg", fc.getSelectedFile());
+                ImageIO.write(image, "png", fc.getSelectedFile());
             }
         } catch (IOException ex) 
         {
-            ex.printStackTrace();
+           
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
