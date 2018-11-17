@@ -23,10 +23,11 @@ public class Convertitore
      BufferedImage Int3dToBufferedImage(int[][][] img){
         int x,y;
 
-        BufferedImage img2 = new BufferedImage(img.length,img[0].length,BufferedImage.TYPE_INT_ARGB);
+        BufferedImage img2 = new BufferedImage(img.length,img[0].length,BufferedImage.TYPE_INT_RGB);
         for(x=0;x<img.length;x++)
             for(y=0;y<img[0].length;y++){
-                img2.setRGB(img[x][y][0],img[x][y][1],img[x][y][2]);
+                int colore = img[x][y][0]<<16 | img[x][y][1]<<8 | img[x][y][2];
+                img2.setRGB(x,y, colore);
             }
         return img2;
     }
