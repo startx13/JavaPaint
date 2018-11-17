@@ -46,6 +46,11 @@ public class Finestra extends javax.swing.JFrame {
         });
 
         jButton2.setText("Salva");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("ToolBox");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +111,21 @@ public class Finestra extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showDialog(this, "Salva");
+        try
+        {
+            if(i!=null){
+                BufferedImage image = i.saveImage();
+                ImageIO.write(image, "jpg", fc.getSelectedFile());
+            }
+        } catch (IOException ex) 
+        {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

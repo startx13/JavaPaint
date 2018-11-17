@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JPanel;
 
 public class Image extends JPanel implements MouseListener,MouseMotionListener
@@ -28,8 +29,8 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
         addMouseListener(this);
         addMouseMotionListener(this);
         this.setBounds(1,1,imgInt.length,imgInt[0].length);
-        Dimension dim = new Dimension(imgInt.length,imgInt[0].length);
-        setMaximumSize(dim);
+        //Dimension dim = new Dimension(imgInt.length,imgInt[0].length);
+        //setMaximumSize(dim);
         
         
         
@@ -38,6 +39,7 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
     @Override
     public void paint(Graphics g)
     {
+        super.paint(g);
         paintImage(g);
     }
 
@@ -66,7 +68,7 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
         
     }
     
-    public synchronized void applyChange()
+    public void applyChange()
     {
         if(modX<imgInt.length && modY<imgInt[0].length && modX>-1 && modY>-1)
         {
@@ -105,9 +107,35 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
                     repaint();
                     break;
                 case Gomma:
+                    //Alto
+                    if(modY-1>=0){
+                        imgInt[modX][modY-1][0] = 255;
+                        imgInt[modX][modY-1][1] = 255;
+                        imgInt[modX][modY-1][2] = 255;
+                    }
+                    //Sinistra
+                    if(modX-1>=0){
+                        imgInt[modX-1][modY][0] = 255;
+                        imgInt[modX-1][modY][1] = 255;
+                        imgInt[modX-1][modY][2] = 255;
+                    }
+                    //centro
                     imgInt[modX][modY][0] = 255;
                     imgInt[modX][modY][1] = 255;
                     imgInt[modX][modY][2] = 255;
+                    //Destra
+                    if(modX+1<imgInt.length){
+                        imgInt[modX+1][modY][0] = 255;
+                        imgInt[modX+1][modY][1] = 255;
+                        imgInt[modX+1][modY][2] = 255;
+                    }
+                    //Basso
+                    if(modY+1<imgInt[0].length){
+                        imgInt[modX][modY+1][0] = 255;
+                        imgInt[modX][modY+1][1] = 255;
+                        imgInt[modX][modY+1][2] = 255;
+                    }
+                   
                     repaint();
                     break;
                 case Effetto:
@@ -121,15 +149,14 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
         }
         
     }
-    public synchronized BufferedImage saveImage()
+    public BufferedImage saveImage()
     {
-        
         return PioIX.Int3dToBufferedImage(imgInt);
     }
 
     
 
-    private synchronized void paintImage(Graphics g) 
+    private void paintImage(Graphics g) 
     {
         
         for(int i=0;i<imgInt.length;i++)
