@@ -9,7 +9,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class Image extends JPanel implements MouseListener,MouseMotionListener
 {
@@ -17,9 +16,8 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
     private int modX=0,modY=0;
     private BufferedImage img = null;
     private int[][][] imgInt = null;
-    private boolean firstRun = true;
     private boolean pressed = false;
-    private Convertitore PioIX = new Convertitore();
+    private final Convertitore PioIX = new Convertitore();
   
     
     Image(ToolBox tb, BufferedImage img)
@@ -45,20 +43,37 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
         paintImage(g);
         
     }
-
+    int x1,x2,y1,y2;
+    boolean oldpoint = false;
     @Override
-    public void mouseClicked(MouseEvent me) {
-       
+    public void mouseClicked(MouseEvent me) 
+    {
+        if(tb.tool == Tools.Line)
+        {
+            if(!oldpoint)
+            {
+                x1 = me.getX();
+                y1 = me.getY();
+            }
+            else
+            {
+                x2 = me.getX();
+                y2 = me.getY();
+                repaint();
+            }
+        }
     }
 
+    
     @Override
-    public void mousePressed(MouseEvent me) {
-        pressed=true;
+    public void mousePressed(MouseEvent me) 
+    {
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        pressed=false;
+        
     }
 
     @Override
@@ -148,6 +163,7 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
                         PioIX.Smoother(imgInt);
                     repaint();
                     break;
+                    
             }
         }
         
@@ -161,27 +177,41 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
 
     private void paintImage(Graphics g) 
     {
-        
-        for(int i=0;i<imgInt.length;i++)
-        {
-            for(int j=0;j<imgInt[0].length;j++)
+        if(tb.tool!=Tools.Line){
+            for(int i=0;i<imgInt.length;i++)
             {
-                g.setColor(new Color(imgInt[i][j][0],imgInt[i][j][1],imgInt[i][j][2]));
-                //g.setColor(Color.BLACK);
-                //System.out.println("Ci so");
-                g.drawLine(i, j, i, j);
+                for(int j=0;j<imgInt[0].length;j++)
+                {
+                    g.setColor(new Color(imgInt[i][j][0],imgInt[i][j][1],imgInt[i][j][2]));
+                    //g.setColor(Color.BLACK);
+                    //System.out.println("Ci so");
+                    g.drawLine(i, j, i, j);
+                }
             }
+        }
+        else
+        {
+            for(int i=0;i<imgInt.length;i++)
+            {
+                for(int j=0;j<imgInt[0].length;j++)
+                {
+                    g.setColor(new Color(imgInt[i][j][0],imgInt[i][j][1],imgInt[i][j][2]));
+                    //g.setColor(Color.BLACK);
+                    //System.out.println("Ci so");
+                    g.drawLine(i, j, i, j);
+                }
+            }
+            g.setColor(new Color(tb.color[0],tb.color[1],tb.color[2]));
+            g.drawLine(x1, y1, x2-x1, y2-y1);
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent me) {
-        if(pressed)
-        {
             modX = me.getX();
             modY = me.getY();
             applyChange();
-        }
+        
     }
 
     @Override

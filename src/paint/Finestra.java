@@ -105,6 +105,9 @@ public class Finestra extends javax.swing.JFrame {
             i = new Image(tb,image);
             i.setVisible(true);
             this.jScrollPane1.add(i);
+            jScrollPane1.setAutoscrolls(true);
+            jScrollPane1.setViewportView(i);
+
             i.repaint();
         } catch (IOException ex) 
         {
