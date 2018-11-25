@@ -54,13 +54,19 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
             {
                 x1 = me.getX();
                 y1 = me.getY();
+                oldpoint = true;
             }
             else
             {
                 x2 = me.getX();
                 y2 = me.getY();
                 repaint();
+                oldpoint = false;
             }
+        }
+        else
+        {
+            oldpoint = false;
         }
     }
 
@@ -195,14 +201,35 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
             {
                 for(int j=0;j<imgInt[0].length;j++)
                 {
+                    //y = y1 + ((y2 - y1)/(x2 - x1))*(x - x1)
+                    try
+                    {
+                        if(j == y1+((y2-y2)/(x2-x1))*(i-x2))
+                        {
+                            imgInt[i][j][0] = tb.color[0];
+                            imgInt[i][j][1] = tb.color[1];
+                            imgInt[i][j][2] = tb.color[2];
+                        }
+                    }
+                    catch(ArithmeticException e)
+                    {
+                        System.out.println("Bigonzo");
+                    }
+                }
+            }
+            
+            for(int i=0;i<imgInt.length;i++)
+            {
+                for(int j=0;j<imgInt[0].length;j++)
+                {
                     g.setColor(new Color(imgInt[i][j][0],imgInt[i][j][1],imgInt[i][j][2]));
                     //g.setColor(Color.BLACK);
                     //System.out.println("Ci so");
                     g.drawLine(i, j, i, j);
+                    
                 }
             }
-            g.setColor(new Color(tb.color[0],tb.color[1],tb.color[2]));
-            g.drawLine(x1, y1, x2-x1, y2-y1);
+            
         }
     }
 
