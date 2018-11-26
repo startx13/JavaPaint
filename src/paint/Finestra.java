@@ -20,7 +20,7 @@ public class Finestra extends javax.swing.JFrame {
         this.setTitle("Paint");
         this.setVisible(true);
         tb = new ToolBox();
-        jScrollPane1.setLayout(null);
+        //jScrollPane1.setLayout(null);
         
         
     }
@@ -32,7 +32,6 @@ public class Finestra extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,30 +56,23 @@ public class Finestra extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setAutoscrolls(true);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
+                .addComponent(jButton3)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(397, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -104,9 +96,9 @@ public class Finestra extends javax.swing.JFrame {
             BufferedImage image = ImageIO.read(fc.getSelectedFile());
             i = new Image(tb,image);
             i.setVisible(true);
-            this.jScrollPane1.add(i);
-            jScrollPane1.setAutoscrolls(true);
-            jScrollPane1.setViewportView(i);
+            this.add(i);
+            //jScrollPane1.setAutoscrolls(true);
+            //jScrollPane1.setViewportView(i);
 
             i.repaint();
         } catch (IOException ex) 
@@ -134,6 +126,5 @@ public class Finestra extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

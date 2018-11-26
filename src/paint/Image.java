@@ -189,8 +189,6 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
                 for(int j=0;j<imgInt[0].length;j++)
                 {
                     g.setColor(new Color(imgInt[i][j][0],imgInt[i][j][1],imgInt[i][j][2]));
-                    //g.setColor(Color.BLACK);
-                    //System.out.println("Ci so");
                     g.drawLine(i, j, i, j);
                 }
             }
@@ -199,22 +197,61 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
         {
             for(int i=0;i<imgInt.length;i++)
             {
-                for(int j=0;j<imgInt[0].length;j++)
+                try
                 {
-                    //y = y1 + ((y2 - y1)/(x2 - x1))*(x - x1)
-                    try
+                    /*
+                       a = y2-y1
+                       b = x1-x2
+                       c = (x2*y1)-(y2*x1)
+                       ax + by + c = 0
+                       by = -ax - c
+                       y = (-ax - c)/b
+                    */
+                    int a = y2 - y1;
+                    int b = x1 - x2;
+                    int c = (x2*y1) - (y2*x1);
+                    int nY = ((-1 * a * i) - c)/b;
+                    
+                    if(!(y1>y2))
                     {
-                        if(j == y1+((y2-y2)/(x2-x1))*(i-x2))
-                        {
-                            imgInt[i][j][0] = tb.color[0];
-                            imgInt[i][j][1] = tb.color[1];
-                            imgInt[i][j][2] = tb.color[2];
-                        }
+                        if(nY>=y1 && nY <= y2)
+                            if(nY>=0 && nY<imgInt[0].length){
+                                imgInt[i][nY][0] = tb.color[0];
+                                imgInt[i][nY][1] = tb.color[1];
+                                imgInt[i][nY][2] = tb.color[2];
+                            }
                     }
-                    catch(ArithmeticException e)
+                    else
                     {
-                        System.out.println("Bigonzo");
+                        if(y1 != y2)
+                            if(nY<=y1 && nY >= y2)
+                                if(nY>=0 && nY<imgInt[0].length){
+                                    imgInt[i][nY][0] = tb.color[0];
+                                    imgInt[i][nY][1] = tb.color[1];
+                                    imgInt[i][nY][2] = tb.color[2];
+                                }
+                        else
+                            if(x1 > x2)   
+                                if(i>=x1 && i<=x2)        
+                                    if(nY<=y1 && nY >= y2)
+                                        if(nY>=0 && nY<imgInt[0].length){
+                                            imgInt[i][nY][0] = tb.color[0];
+                                            imgInt[i][nY][1] = tb.color[1];
+                                            imgInt[i][nY][2] = tb.color[2];
+                                        }
+                            else
+                                if(i<=x1 && i>=x2)        
+                                    if(nY<=y1 && nY >= y2)
+                                        if(nY>=0 && nY<imgInt[0].length){
+                                            imgInt[i][nY][0] = tb.color[0];
+                                            imgInt[i][nY][1] = tb.color[1];
+                                            imgInt[i][nY][2] = tb.color[2];
+                                        }
                     }
+                }
+                catch(ArithmeticException e )
+                {
+                    System.out.println("Bigonzo");
                 }
             }
             
@@ -223,8 +260,6 @@ public class Image extends JPanel implements MouseListener,MouseMotionListener
                 for(int j=0;j<imgInt[0].length;j++)
                 {
                     g.setColor(new Color(imgInt[i][j][0],imgInt[i][j][1],imgInt[i][j][2]));
-                    //g.setColor(Color.BLACK);
-                    //System.out.println("Ci so");
                     g.drawLine(i, j, i, j);
                     
                 }
